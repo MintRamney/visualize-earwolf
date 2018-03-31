@@ -18,20 +18,6 @@ def parse_directory_page(url):
     #print(person_list)
     return person_list
 
-def find_people():
-# Returns a list of every guest for each Earwolf guest/host directory page 
-    html = urlopen('http://www.earwolf.com/directory/')
-    soup = BeautifulSoup(html.read(), "lxml")
-    pages = soup.find_all('a', class_="page-numbers") 
-    
-    people=parse_directory_page(html)
-
-    for page in pages:
-        html = urlopen(page["href"])
-        people += parse_directory_page(html)
-
-    return people
-    
 
 def find_hosted_shows(guest):
 # Finds which shows a given person has hosted
