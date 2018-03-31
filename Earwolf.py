@@ -1,10 +1,5 @@
 from collections import defaultdict
 
-class Show:
-    def __init__(self, hosts, episodes):
-        self.hosts = hosts
-        self.episodes = episodes
-
 class Guest:
 
     def __init__(self, name, url):
