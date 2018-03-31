@@ -1,10 +1,10 @@
 import Earwolf
 import pickle
 from urllib.request import urlopen
-from parse import parse_directory_page, find_hosted_shows, find_guested_shows
+import parse
 
 '''
-Note I went fuckin crazy with the serialization because I didn't want to 
+Note: I went overkill on the serialization because I didn't want to 
 have to start over when I originally was pulling out 3500 guests
 '''
 
@@ -21,14 +21,14 @@ with open('temp.pickle', 'rb') as handle:
     unserialized_data = pickle.load(handle)
 
 # now write to guest_data
-handle = open('guest_data.pickle', 'wb')
+#handle = open('guest_data.pickle', 'wb')
 print(unserialized_data)
 i = 0
 
 # construct host and guest lists for each guest
 for guest in unserialized_data:
-    find_hosted_shows(guest)
-    find_guested_shows(guest)  
+    parse.find_hosted_shows(guest)
+    parse.find_guested_shows(guest)  
     print("\n", i , ". ", guest)
     print("Hosted:")
     guest.print_shows_hosted()
@@ -36,7 +36,7 @@ for guest in unserialized_data:
     guest.print_guested_shows()
 
     # serialize 
-    pickle.dump(unserialized_data,handle,protocol=pickle.HIGHEST_PROTOCOL)
+    #pickle.dump(unserialized_data,handle,protocol=pickle.HIGHEST_PROTOCOL)
     i+=1
 '''
 
@@ -44,6 +44,13 @@ for guest in unserialized_data:
 with open('guest_data.pickle','rb') as handle:
     unserialized_data = pickle.load(handle)
 
+print(unserialized_data)
 
+
+#for guest in unserialized_data:
+#    guest.name = parse.trim_name(guest.name)
+
+with open('guest_data.pickle','wb') as handle:
+    pickle.dump(unserialized_data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 

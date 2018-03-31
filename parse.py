@@ -63,3 +63,8 @@ def get_showTitle(episode):
             return episode[0:i-1]
 
     return episode
+
+def trim_name(name):
+    for i, c in enumerate(name):
+        if (name[i].isdigit()):
+            return name[:i-1]
