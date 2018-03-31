@@ -1,25 +1,24 @@
 import Earwolf
 import pickle
-from parse import find_people, find_hosted_shows, find_guested_shows
-'''
-guest_list = find_people()
+from urllib.request import urlopen
+from parse import parse_directory_page, find_hosted_shows, find_guested_shows
 
-with open('guests.pickle','wb') as handle:
+''''
+guest_list = parse_directory_page(urlopen('http://www.earwolf.com/directory?role=guest&orderby=frequency'))
+
+with open('temp.pickle','wb') as handle:
     pickle.dump(guest_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-with open('guests.pickle', 'rb') as handle:
+with open('temp.pickle', 'rb') as handle:
     unserialized_data = pickle.load(handle)
 
 
-
-handle = open('full_guests.pickle', 'wb')
-
-
+handle = open('temp_fulll.pickle', 'wb')
 print(unserialized_data)
 i = 0
 
-for guest in unserialized_data[42:]:
+for guest in unserialized_data:
     find_hosted_shows(guest)
     find_guested_shows(guest)  
     print("\n", i , ". ", guest)
@@ -29,7 +28,9 @@ for guest in unserialized_data[42:]:
     guest.print_guested_shows()
     pickle.dump(unserialized_data,handle,protocol=pickle.HIGHEST_PROTOCOL)
     i+=1
-
 '''
 
-find_people()
+with open('guest_data.pickle','rb') as handle:
+    unserialized_data = pickle.load(handle)
+
+
